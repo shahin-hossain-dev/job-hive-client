@@ -1,8 +1,12 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "../pages/shared/Navbar/Navbar";
 
 const Root = () => {
   return (
-    <div>
+    <div className="font-Jakarta relative">
+      <div className="sticky top-0 z-20 bg-white">
+        <Navbar />
+      </div>
       <Outlet />
     </div>
   );

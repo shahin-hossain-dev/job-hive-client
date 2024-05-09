@@ -1,0 +1,15 @@
+.nav-item {
+    position: relative;
+  }
+ 
+  .nav-item::after {
+    content: "";
+    width: 80%;
+    height: 5px;
+    
+    background: #56F09F ;
+    position: absolute;
+    bottom: -9.5px;
+    left: 0;
+    border-radius: 20px;
+  }

@@ -1,0 +1,37 @@
+
+  .nav-underline{
+    position: relative;
+  }
+
+/* .nav-underline:hover::after{
+    content: "";
+    width: 80%;
+    height: 5px;
+    
+    background: #56F09F ;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    border-radius: 20px;
+      
+} */
+
+.nav-underline:hover::after {
+    content: "";
+    height: 5px;
+    
+    background: #56F09F ;
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    border-radius: 20px;
+    animation-name: example;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
+  
+
+@keyframes example {
+    from {width: 0%;}
+    to {width: 80%;}
+  }
