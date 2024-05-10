@@ -1,7 +1,55 @@
 import { Link } from "react-router-dom";
 import ActiveLink from "../../../components/ActiveLink/ActiveLink";
+import { FaRegUserCircle } from "react-icons/fa";
 import "./Navbar.css";
+
+import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  console.log(user);
+
+  const [darkMode, setDarkMode] = useState(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.querySelector("html").setAttribute("data-theme", "dark");
+    } else {
+      document.querySelector("html").setAttribute("data-theme", "light");
+    }
+  }, [darkMode]);
+
+  console.log(darkMode);
+  const handleDarkMood = (e) => {
+    const toggle = e.target.checked;
+    if (toggle === true) {
+      localStorage.setItem("theme", "dark");
+      setDarkMode(true);
+    } else {
+      localStorage.setItem("theme", "light");
+      setDarkMode(false);
+    }
+  };
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          title: "Logout Successfully",
+          icon: "success",
+        });
+      })
+      .catch((error) => error.message);
+  };
   const links = (
     <>
       <ActiveLink to={"/"} className="hover:nav-item">
@@ -22,7 +70,11 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className=" w-full py-5 shadow-lg">
+    <div
+      className={`w-full py-3 shadow-lg ${
+        darkMode ? "bg-[#11111A]" : "bg-white"
+      }`}
+    >
       <div className="md:px-5">
         <div className="navbar">
           <div className="navbar-start ">
@@ -51,7 +103,11 @@ const Navbar = () => {
               </ul>
             </div>
             <div>
-              <h1 className=" text-3xl md:text-4xl lg:text-5xl font-bold text-neutral">
+              <h1
+                className={`text-3xl md:text-4xl lg:text-5xl font-bold ${
+                  darkMode ? "text-white" : "text-neutral"
+                }`}
+              >
                 Job<span className="text-[#56F09F]">hive</span>
               </h1>
             </div>
@@ -60,10 +116,100 @@ const Navbar = () => {
             {links}
           </div>
           <div className="navbar-end">
-            <div className="flex gap-3">
-              <Link to={"/login"}>Login</Link>
-              <Link to={"/register"}>Register</Link>
-            </div>
+            <label className="cursor-pointer me-3 label">
+              {darkMode ? (
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  onChange={handleDarkMood}
+                  defaultChecked={true}
+                />
+              ) : (
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  onChange={handleDarkMood}
+                  defaultChecked={false}
+                />
+              )}
+            </label>
+
+            {user ? (
+              <div className="flex ">
+                {/* user */}
+                <div className="dropdown dropdown-end me-3">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn hover:bg-[#56F09F] border-0 btn-circle flex justify-center items-center  avatar tooltip before:bg-[#56F09F] before:text-neutral tooltip-bottom dropdown dropdown-hover "
+                    data-tip={user.displayName}
+                  >
+                    <div className="w-10 rounded-full">
+                      <img alt="User Image" src={user && user?.photoURL} />
+                    </div>
+                  </div>
+                </div>
+                {/* user */}
+                <button
+                  onClick={handleLogout}
+                  className={`
+              relative
+              rounded-md
+              btn
+              hover:bg-white
+              border border-[#56F09F]
+              flex items-center gap-3  px-5 py-2 
+              before:scale-x-0
+              before:origin-right
+              before:transition
+              before:duration-500
+              hover:before:scale-x-100
+              hover:before:origin-left
+              hover:text-neutral
+              hover:rounded-md
+              hover:before:bg-[#56F09F]
+              before:absolute 
+              before:inset-0`}
+                >
+                  <Link
+                    to={"/login"}
+                    className="relative flex gap-2 items-center   "
+                  >
+                    <FaRegUserCircle />
+                    Logout
+                  </Link>
+                </button>
+              </div>
+            ) : (
+              <button
+                className={`
+            relative
+            rounded-md
+            btn
+            hover:bg-white
+            border border-[#56F09F]
+            flex items-center gap-3  px-5 py-2 
+            before:scale-x-0
+            before:origin-right
+            before:transition
+            before:duration-500
+            hover:before:scale-x-100
+            hover:before:origin-left
+            hover:text-neutral
+            hover:rounded-md
+            hover:before:bg-[#56F09F]
+            before:absolute 
+            before:inset-0`}
+              >
+                <Link
+                  to={"/login"}
+                  className="relative flex gap-2 items-center   "
+                >
+                  <FaRegUserCircle />
+                  Login
+                </Link>
+              </button>
+            )}
           </div>
         </div>
       </div>
