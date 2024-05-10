@@ -1,10 +1,11 @@
 import Banner from "../../../components/Banner/Banner";
+import JobTabs from "../JobTabs/JobTabs";
 
 const Home = () => {
   return (
     <div>
       <Banner />
-      <div className="min-h-screen"></div>
+      <JobTabs />
     </div>
   );
 };

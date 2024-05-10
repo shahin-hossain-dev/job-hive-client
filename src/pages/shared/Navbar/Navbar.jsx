@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  console.log(user);
+  // console.log(user);
 
   const [darkMode, setDarkMode] = useState(() => {
     const theme = localStorage.getItem("theme");
@@ -28,7 +28,7 @@ const Navbar = () => {
     }
   }, [darkMode]);
 
-  console.log(darkMode);
+  // console.log(darkMode);
   const handleDarkMood = (e) => {
     const toggle = e.target.checked;
     if (toggle === true) {
@@ -46,6 +46,7 @@ const Navbar = () => {
         Swal.fire({
           title: "Logout Successfully",
           icon: "success",
+          confirmButtonColor: "#33CC77",
         });
       })
       .catch((error) => error.message);
