@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 import Swal from "sweetalert2";
-import Button from "../../components/Button/Button";
+import buttonSetting from "../../components/Button/Button";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
@@ -18,6 +18,7 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    // console.log(email, password);
 
     if (password.length < 6) {
       return setError("Password should be at least 6 characters");
@@ -63,8 +64,8 @@ const Login = () => {
 
   return (
     <div>
-      <div className=" flex justify-center items-center px-5 md:px-0 mt-16  pb-5">
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl  border">
+      <div className=" flex justify-center items-center px-5 md:px-0 mt-8 lg:mt-16  pb-5">
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl  border border-[#45c380]">
           <h1 className="text-2xl font-exo mt-5 text-center font-bold  ">
             Please Login
           </h1>
@@ -95,7 +96,11 @@ const Login = () => {
             </div>
 
             <div className="form-control mt-6">
-              <Button>Login</Button>
+              <button type="submit" className={buttonSetting()}>
+                <span className="relative uppercase text-base font-semibold">
+                  <small>Login</small>
+                </span>
+              </button>
             </div>
           </form>
           <p className="label-text-alt text-center ">
