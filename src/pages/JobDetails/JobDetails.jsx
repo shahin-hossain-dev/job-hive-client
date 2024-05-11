@@ -2,9 +2,16 @@ import { useLoaderData } from "react-router-dom";
 import sideImage from "../../assets/side.jpg";
 import buttonSetting from "../../components/Button/Button";
 import ApplyModal from "../../components/ApplyModal/ApplyModal";
+import { useMutation } from "@tanstack/react-query";
+import useCommonAxios from "../../hooks/useCommonAxios";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const JobDetails = () => {
   const job = useLoaderData();
+  const commonAxios = useCommonAxios();
+  const { user } = useAuth();
+
   const background = {
     backgroundImage: `linear-gradient(to right, #00000066, #00000066),url(${job.job_banner_url})`,
     backgroundRepeat: "no-repeat",
@@ -13,8 +20,6 @@ const JobDetails = () => {
   };
 
   const {
-    job_banner_url,
-    _id,
     job_title,
     job_description,
     min_range,
@@ -23,7 +28,35 @@ const JobDetails = () => {
     job_category,
   } = job;
 
-  console.log(job);
+  const { mutateAsync } = useMutation({
+    mutationFn: async (appliedJob) => {
+      const { post } = await commonAxios.post("/applied", appliedJob);
+    },
+    onSuccess: () => {
+      document.getElementById("apply").close();
+      Swal.fire({
+        title: "Job Post Successfully",
+        icon: "success",
+      });
+    },
+  });
+
+  const handleApplyJob = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const resumeLink = form.resumeLink.value;
+
+    const appliedJob = {
+      resumeLink,
+      job_category,
+      user: user.displayName,
+      email: user.email,
+    };
+
+    await mutateAsync(appliedJob);
+  };
+
+  //   console.log(job);
   return (
     <div>
       <div
@@ -78,7 +111,7 @@ const JobDetails = () => {
       </div>
       <div>
         {/* Apply Modal */}
-        <ApplyModal />
+        <ApplyModal handleApplyJob={handleApplyJob} />
       </div>
       ;
     </div>

@@ -1,19 +1,17 @@
 import buttonSetting from "../Button/Button";
 import useAuth from "../../hooks/useAuth";
 
-const ApplyModal = () => {
+const ApplyModal = ({ handleApplyJob }) => {
   const { user } = useAuth();
 
-  const handleApplyJob = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const resumeLink = form.resumeLink.value;
-    console.log(resumeLink);
-  };
   return (
     <div>
       {/* Apply Modal */}
-      <dialog id="apply" className="modal modal-bottom sm:modal-middle">
+      <dialog
+        id="apply"
+        htmlFor="my_modal_5"
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box " style={{ borderRadius: "10px" }}>
           {/* working  */}
           <div className=" shrink-0 w-full ">
@@ -60,9 +58,9 @@ const ApplyModal = () => {
                 </div>
               </div>
 
-              <div className="form-control mt-6">
+              <div className="form-control mt-6 ">
                 <button type="submit" className={buttonSetting()}>
-                  <span className="relative  text-base font-semibold">
+                  <span className="relative text-base font-semibold">
                     Apply Job
                   </span>
                 </button>
