@@ -1,12 +1,10 @@
 import { FaRegUser } from "react-icons/fa6";
 import buttonSetting from "../../components/Button/Button";
-import useAuth from "../../hooks/useAuth";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const TabAllJob = ({ job }) => {
-  const { user } = useAuth();
   const navigate = useNavigate();
+
   const {
     _id,
     job_title,
@@ -19,15 +17,6 @@ const TabAllJob = ({ job }) => {
   } = job;
 
   const handleViewDetails = () => {
-    if (!user) {
-      Swal.fire({
-        title: "Login Warning",
-        text: "You have to log in first to view details",
-        icon: "warning",
-        confirmButtonColor: "#33CC77",
-      });
-      return navigate(`/login`);
-    }
     navigate(`/job-details/${_id}`);
   };
   console.log(job);
@@ -77,11 +66,13 @@ const TabAllJob = ({ job }) => {
             </div>
           </div>
           <div className="card-actions justify-end">
-            <button onClick={handleViewDetails} className={buttonSetting()}>
-              <span className="relative  text-base font-semibold">
-                <small>View Details</small>
-              </span>
-            </button>
+            <Link to={`/job-details/${_id}`} className="w-full">
+              <button className={buttonSetting()}>
+                <span className="relative  text-base font-semibold">
+                  <small>View Details</small>
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
