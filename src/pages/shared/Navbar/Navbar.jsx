@@ -168,22 +168,21 @@ const Navbar = () => {
               hover:before:origin-left
               hover:text-neutral
               hover:rounded-md
+              before:hover:rounded-md
               hover:before:bg-[#56F09F]
               before:absolute 
               before:inset-0`}
                 >
-                  <Link
-                    to={"/login"}
-                    className="relative flex gap-2 items-center   "
-                  >
-                    <FaRegUserCircle />
+                  <span className="relative flex gap-2 items-center   ">
+                    <FaRegUserCircle className="text-xl" />
                     Logout
-                  </Link>
+                  </span>
                 </button>
               </div>
             ) : (
-              <button
-                className={`
+              <Link to={"/login"}>
+                <button
+                  className={`
             relative
             rounded-md
             btn
@@ -197,19 +196,18 @@ const Navbar = () => {
             hover:before:scale-x-100
             hover:before:origin-left
             hover:text-neutral
+            before:hover:rounded-md
             hover:rounded-md
             hover:before:bg-[#56F09F]
             before:absolute 
             before:inset-0`}
-              >
-                <Link
-                  to={"/login"}
-                  className="relative flex gap-2 items-center   "
                 >
-                  <FaRegUserCircle />
-                  Login
-                </Link>
-              </button>
+                  <span className="relative flex gap-2 items-center   ">
+                    <FaRegUserCircle className="text-xl" />
+                    Login
+                  </span>
+                </button>
+              </Link>
             )}
           </div>
         </div>

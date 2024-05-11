@@ -61,7 +61,7 @@ const ApplyModal = ({ handleApplyJob }) => {
               <div className="form-control mt-6 ">
                 <button type="submit" className={buttonSetting()}>
                   <span className="relative text-base font-semibold">
-                    Apply Job
+                    Submit Application
                   </span>
                 </button>
               </div>
