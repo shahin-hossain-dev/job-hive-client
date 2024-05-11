@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-import coverImg from "../../assets/img2.jpg";
 import sideImage from "../../assets/side.jpg";
 import buttonSetting from "../../components/Button/Button";
 import ApplyModal from "../../components/ApplyModal/ApplyModal";
@@ -24,8 +23,6 @@ const JobDetails = () => {
     job_category,
   } = job;
 
-  const handleApply = () => {};
-
   console.log(job);
   return (
     <div>
@@ -47,7 +44,7 @@ const JobDetails = () => {
           </div>
           <div>
             <div className="card relative rounded-md  shadow-xl border border-[#8BF0B3]">
-              <div className="absolute top-3 right-3 font-semibold">
+              <div className="absolute top-5 right-5 font-semibold">
                 <span className="bg-[#8BF0B366]  font-bold rounded-md px-3 py-1 ">
                   <small>{job_category}</small>
                 </span>

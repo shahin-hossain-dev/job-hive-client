@@ -3,9 +3,9 @@ import useAuth from "../../hooks/useAuth";
 
 const ApplyModal = () => {
   const { user } = useAuth();
+
   const handleApplyJob = (e) => {
     e.preventDefault();
-
     const form = e.target;
     const resumeLink = form.resumeLink.value;
     console.log(resumeLink);
@@ -26,7 +26,7 @@ const ApplyModal = () => {
                   </label>
                   <input
                     type="text"
-                    name="cvLink"
+                    name="resumeLink"
                     placeholder="Provide Resume Link"
                     className="input input-bordered"
                     required

@@ -2,7 +2,7 @@ import { FaRegUser } from "react-icons/fa6";
 import buttonSetting from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 
-const TabAllJob = ({ job }) => {
+const RemoteJobCard = ({ job }) => {
   const {
     _id,
     job_title,
@@ -75,4 +75,4 @@ const TabAllJob = ({ job }) => {
   );
 };
 
-export default TabAllJob;
+export default RemoteJobCard;

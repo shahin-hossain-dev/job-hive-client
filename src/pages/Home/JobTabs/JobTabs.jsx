@@ -2,8 +2,24 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./JobTabs.css";
 import TabAllJobs from "../../TabAllJobs/TabAllJobs";
+import OnSiteJob from "../../../components/OnSiteJob/OnSiteJob";
+import RemoteJob from "../../../components/RemoteJob/RemoteJob";
+import CategoryJobs from "../../../hooks/CategoryJobs";
+import { useState } from "react";
 
 const JobTabs = () => {
+  const [tabIndex, setTabIndex] = useState(() => {
+    const tabIndex = localStorage.getItem("tabIndex");
+    return parseInt(tabIndex);
+  });
+
+  console.log(tabIndex);
+
+  const handleActive = (index) => {
+    setTabIndex(index);
+    localStorage.setItem("tabIndex", index);
+  };
+
   return (
     <div className="mt-24">
       <div className="mt-12 md:mt-24 text-center space-y-4 md:w-1/2 mx-auto">
@@ -15,7 +31,7 @@ const JobTabs = () => {
           job category listings.
         </p>
       </div>
-      <Tabs>
+      <Tabs selectedIndex={tabIndex} onSelect={(index) => handleActive(index)}>
         <TabList>
           <div className="flex flex-wrap gap-5 md:gap-2">
             <Tab>All Jobs</Tab>
@@ -25,21 +41,22 @@ const JobTabs = () => {
             <Tab>Part-Time</Tab>
           </div>
         </TabList>
-
+        {/* All Jobs */}
         <TabPanel>
           <TabAllJobs />
         </TabPanel>
+        {/* On-Site Job */}
         <TabPanel>
-          <h2>Any content 2</h2>
+          <OnSiteJob />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 3</h2>
+          <RemoteJob />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 4</h2>
+          <CategoryJobs type={"Hybrid"} key={"hybridJobs"} />
         </TabPanel>
         <TabPanel>
-          <h2>Any content 5</h2>
+          <CategoryJobs type={"Part-Time"} key={"partTimeJobs"} />
         </TabPanel>
       </Tabs>
     </div>

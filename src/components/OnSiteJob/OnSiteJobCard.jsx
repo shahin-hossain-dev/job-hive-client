@@ -2,7 +2,7 @@ import { FaRegUser } from "react-icons/fa6";
 import buttonSetting from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 
-const TabAllJob = ({ job }) => {
+const OnSiteJobCard = ({ job }) => {
   const {
     _id,
     job_title,
@@ -14,7 +14,6 @@ const TabAllJob = ({ job }) => {
     job_applicants,
   } = job;
 
-  //   console.log(job);
   return (
     <div>
       <div className="card shadow-xl rounded-md hover:-translate-y-1 duration-[400ms] border border-base-200 hover:border-[#56F09F]">
@@ -75,4 +74,4 @@ const TabAllJob = ({ job }) => {
   );
 };
 
-export default TabAllJob;
+export default OnSiteJobCard;
