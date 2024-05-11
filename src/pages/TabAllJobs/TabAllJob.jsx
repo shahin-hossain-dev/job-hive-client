@@ -1,0 +1,92 @@
+import { FaRegUser } from "react-icons/fa6";
+import buttonSetting from "../../components/Button/Button";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+
+const TabAllJob = ({ job }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const {
+    _id,
+    job_title,
+    user_name,
+    job_posting_date,
+    application_deadline,
+    min_range,
+    max_range,
+    job_applicants,
+  } = job;
+
+  const handleViewDetails = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Login Warning",
+        text: "You have to log in first to view details",
+        icon: "warning",
+        confirmButtonColor: "#33CC77",
+      });
+      return navigate(`/login`);
+    }
+    navigate(`/job-details/${_id}`);
+  };
+  console.log(job);
+  return (
+    <div>
+      <div className="card shadow-xl rounded-md hover:-translate-y-1 duration-[400ms] border border-base-200 hover:border-[#56F09F]">
+        <div className="card-body p-4">
+          <h2 className="card-title">{job_title}</h2>
+
+          <div className="flex  items-center gap-2">
+            <span>
+              <small className="font-semibold">Posting Date:</small>
+            </span>
+            <p>
+              <small> {job_posting_date}</small>
+            </p>
+          </div>
+          <div className="flex  items-center gap-2">
+            <span className="font-semibold">
+              <small>Deadline: </small>
+            </span>
+            <p>
+              <small> {application_deadline}</small>
+            </p>
+          </div>
+          <div className="flex  items-center gap-2">
+            <span className="font-semibold">
+              <small>Salary Range: </small>
+            </span>
+            <p>
+              <small> ${min_range}</small> - <small> ${max_range}</small>
+            </p>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex  items-center gap-2">
+              <small>
+                <FaRegUser />
+              </small>
+              <p className="font-semibold">
+                <small> {user_name}</small>
+              </p>
+            </div>
+            <div>
+              <span className="bg-[#8BF0B366] rounded-md px-3 py-1 ">
+                <small>Applicants: {job_applicants}</small>
+              </span>
+            </div>
+          </div>
+          <div className="card-actions justify-end">
+            <button onClick={handleViewDetails} className={buttonSetting()}>
+              <span className="relative  text-base font-semibold">
+                <small>View Details</small>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TabAllJob;

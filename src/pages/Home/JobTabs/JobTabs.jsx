@@ -1,6 +1,8 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./JobTabs.css";
+import TabAllJobs from "../../TabAllJobs/TabAllJobs";
+
 const JobTabs = () => {
   return (
     <div className="mt-24">
@@ -15,15 +17,17 @@ const JobTabs = () => {
       </div>
       <Tabs>
         <TabList>
-          <Tab>All Jobs</Tab>
-          <Tab>On-Site Job</Tab>
-          <Tab>Remote Job</Tab>
-          <Tab>Hybrid</Tab>
-          <Tab>Part-Time</Tab>
+          <div className="flex flex-wrap gap-5 md:gap-2">
+            <Tab>All Jobs</Tab>
+            <Tab>On-Site Job</Tab>
+            <Tab>Remote Job</Tab>
+            <Tab>Hybrid</Tab>
+            <Tab>Part-Time</Tab>
+          </div>
         </TabList>
 
         <TabPanel>
-          <h2>Any content 1</h2>
+          <TabAllJobs />
         </TabPanel>
         <TabPanel>
           <h2>Any content 2</h2>

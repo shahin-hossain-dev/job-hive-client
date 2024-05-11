@@ -2,14 +2,26 @@
     border-bottom: 0;
     display: flex;
     justify-content: center;
-    font-size: 20px;
+    
     font-weight: 500;
     gap: 20px;
     padding: 20px 0;
     margin-top: 50px;
-    box-shadow: 1px 1px  10px rgb(125, 122, 122, 0.2);
-    
+    /* box-shadow: 1px 1px  10px rgb(125, 122, 122, 0.2); */
   }
+  .react-tabs__tab {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-bottom: none;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    transform: translate3d(0, 0, 0);
+    transition: color 0.3s, transform 0.3s;
+  }
+  
   
   .react-tabs__tab--selected {
     border: 0;
