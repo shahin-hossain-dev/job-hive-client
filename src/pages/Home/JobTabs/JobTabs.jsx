@@ -10,10 +10,10 @@ import { useState } from "react";
 const JobTabs = () => {
   const [tabIndex, setTabIndex] = useState(() => {
     const tabIndex = localStorage.getItem("tabIndex");
-    return parseInt(tabIndex);
+    return parseInt(tabIndex) || 0;
   });
 
-  console.log(tabIndex);
+  // console.log(tabIndex);
 
   const handleActive = (index) => {
     setTabIndex(index);

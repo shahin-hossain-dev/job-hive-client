@@ -6,9 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const JobDetails = () => {
   const job = useLoaderData();
+  const [applicantCount, setApplicantCount] = useState(job.job_applicants);
   const commonAxios = useCommonAxios();
   const { user } = useAuth();
 
@@ -20,23 +22,42 @@ const JobDetails = () => {
   };
 
   const {
+    _id,
     job_title,
     job_description,
     min_range,
     max_range,
     job_applicants,
     job_category,
+    application_deadline,
   } = job;
+
+  // const {
+  //   data: job,
+  //   isPending,
+  //   isError,
+  //   isLoading,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["jobs"],
+  //   queryFn: async () => {
+  //     const res = await commonAxios.get(``);
+  //     return res.data;
+  //   },
+  // });
 
   const { mutateAsync } = useMutation({
     mutationFn: async (appliedJob) => {
-      const { post } = await commonAxios.post("/applied", appliedJob);
+      const post = await commonAxios.post("/applied", appliedJob);
+      return post;
     },
-    onSuccess: () => {
+    onSuccess: (res) => {
+      console.log(res.data);
       document.getElementById("apply").close();
       Swal.fire({
         title: "Job Post Successfully",
         icon: "success",
+        confirmButtonColor: "#56F09F",
       });
     },
   });
@@ -47,13 +68,37 @@ const JobDetails = () => {
     const resumeLink = form.resumeLink.value;
 
     const appliedJob = {
+      job_title,
       resumeLink,
       job_category,
       user: user.displayName,
       email: user.email,
     };
+    const newApplicants = {
+      newCount: job_applicants + 1,
+    };
+
+    try {
+      const res = await commonAxios.patch(`/job/${_id}`, newApplicants);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    const deadline = Date.parse(application_deadline);
+    const dateNow = Date.now();
+
+    if (deadline < dateNow) {
+      document.getElementById("apply").close();
+      return Swal.fire({
+        title: "Apply Date Expired",
+        icon: "error",
+        confirmButtonColor: "#56F09F",
+      });
+    }
 
     await mutateAsync(appliedJob);
+    setApplicantCount(job_applicants + 1);
   };
 
   //   console.log(job);
@@ -91,9 +136,13 @@ const JobDetails = () => {
                     ${min_range} - ${max_range}
                   </p>
                 </div>
+                <div className="flex  items-center gap-2">
+                  <span className="font-semibold">Deadline:</span>
+                  <p>{application_deadline}</p>
+                </div>
                 <div>
                   <span className="bg-[#8BF0B366] rounded-md px-3 py-1 ">
-                    <small>Applicants: {job_applicants}</small>
+                    <small>Applicants: {applicantCount}</small>
                   </span>
                 </div>
                 <button
