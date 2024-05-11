@@ -1,8 +1,8 @@
 import { FaRegUser } from "react-icons/fa6";
 import buttonSetting from "../../components/Button/Button";
-import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const TabAllJob = ({ job }) => {
   const { user } = useAuth();

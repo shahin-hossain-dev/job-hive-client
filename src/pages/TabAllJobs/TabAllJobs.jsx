@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import TabAllJob from "./TabAllJob";
 import { useQuery } from "@tanstack/react-query";
@@ -17,9 +16,9 @@ const TabAllJobs = () => {
       return res.data;
     },
   });
-  console.log(jobs);
-  console.log(isPending);
-  console.log(isLoading);
+  // console.log(jobs);
+  // console.log(isPending);
+  // console.log(isLoading);
 
   if (isLoading) {
     return (
