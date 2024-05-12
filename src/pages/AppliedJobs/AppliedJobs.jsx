@@ -3,6 +3,7 @@ import useSecureAxios from "../../hooks/useSecureAxios";
 import useAuth from "../../hooks/useAuth";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import coverImg from "../../assets/img3.jpg";
+import { useState } from "react";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -13,18 +14,39 @@ const background = {
 
 const AppliedJobs = () => {
   const { user } = useAuth();
+  const [appliedJobs, setAppliedJobs] = useState([]);
   const secureAxios = useSecureAxios();
   const commonAxios = useCommonAxios();
 
   const url = `/applied-jobs?email=${user?.email}`;
 
-  const { data: appliedJobs, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryFn: async () => {
       const res = await commonAxios.get(url);
+      setAppliedJobs(res.data);
       return res.data;
     },
     queryKey: ["applied-data"],
   });
+
+  const handleJobsFilter = (e) => {
+    const query = e.target.value;
+    if (query === "On Site") {
+      const onSiteJobs = data.filter((job) => job.job_category === "On Site");
+      setAppliedJobs(onSiteJobs);
+    } else if (query === "Remote") {
+      const onSiteJobs = data.filter((job) => job.job_category === "Remote");
+      setAppliedJobs(onSiteJobs);
+    } else if (query === "Hybrid") {
+      const onSiteJobs = data.filter((job) => job.job_category === "Hybrid");
+      setAppliedJobs(onSiteJobs);
+    } else if (query === "Part-Time") {
+      const onSiteJobs = data.filter((job) => job.job_category === "Part-Time");
+      setAppliedJobs(onSiteJobs);
+    } else {
+      setAppliedJobs(data);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -48,14 +70,17 @@ const AppliedJobs = () => {
       <div className="w-[90%] md:w-[90%] lg:w-[85%] mx-auto mt-12 mb-12">
         <div className="flex justify-center">
           {" "}
-          <select className="select  select-bordered w-full max-w-xs">
-            <option defaultValue={"selected"} disabled>
-              Select One
+          <select
+            onChange={handleJobsFilter}
+            className="select  select-bordered rounded-md w-full max-w-xs"
+          >
+            <option defaultValue={"selected"} value={"Filter Job"}>
+              Filter Job
             </option>
-            <option>On Site</option>
-            <option>Remote</option>
-            <option>Hybrid</option>
-            <option>Part-Time</option>
+            <option value={"On Site"}>On Site</option>
+            <option value={"Remote"}>Remote</option>
+            <option value={"Hybrid"}>Hybrid</option>
+            <option value={"Part-Time"}>Part-Time</option>
           </select>
         </div>
         {/* table */}
