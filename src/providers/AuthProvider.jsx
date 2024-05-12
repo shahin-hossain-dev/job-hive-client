@@ -10,6 +10,7 @@ import {
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import useSecureAxios from "../hooks/useSecureAxios";
+
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 
@@ -44,15 +45,19 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribed = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribed = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
+      // console.log(currentUser);
       const UserEmail = currentUser?.email || user?.email;
       const loggedUser = { email: UserEmail };
-      setLoading(false);
 
       if (currentUser) {
-        secureAxios.post("/jwt", loggedUser);
+        const res = await secureAxios.post("/jwt", loggedUser);
+        // console.log(res);
         // .then((res) => console.log(res.data));
+      } else {
+        await secureAxios.post("/logout", loggedUser);
       }
     });
     return () => {

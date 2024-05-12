@@ -1,12 +1,15 @@
-import axios from "axios";
+// import axios from "axios";
 import TabAllJob from "./TabAllJob";
 import { useQuery } from "@tanstack/react-query";
+import useCommonAxios from "../../hooks/useCommonAxios";
+
 const TabAllJobs = () => {
-  const url = "http://localhost:5000/jobs";
+  const commonAxios = useCommonAxios();
+  // const url = "http://localhost:5000/jobs";
   const { data: jobs, isLoading } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
-      const res = await axios.get(url);
+      const res = await commonAxios.get("/jobs");
       return res.data;
     },
   });

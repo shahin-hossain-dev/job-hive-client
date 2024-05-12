@@ -52,7 +52,7 @@ const JobDetails = () => {
       return post;
     },
     onSuccess: (res) => {
-      console.log(res.data);
+      // console.log(res.data);
       document.getElementById("apply").close();
       Swal.fire({
         title: "Job Post Successfully",
@@ -80,7 +80,7 @@ const JobDetails = () => {
 
     try {
       const res = await commonAxios.patch(`/job/${_id}`, newApplicants);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }

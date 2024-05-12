@@ -3,6 +3,8 @@ import useSecureAxios from "../../hooks/useSecureAxios";
 import useAuth from "../../hooks/useAuth";
 import coverImg from "../../assets/img3.jpg";
 import { useState } from "react";
+// import useCommonAxios from "../../hooks/useCommonAxios";
+import { Link } from "react-router-dom";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -15,6 +17,7 @@ const AppliedJobs = () => {
   const { user } = useAuth();
   const [appliedJobs, setAppliedJobs] = useState([]);
   const secureAxios = useSecureAxios();
+  // const commonAxios = useCommonAxios();
 
   const url = `/applied-jobs?email=${user?.email}`;
 
@@ -101,7 +104,16 @@ const AppliedJobs = () => {
                   <th>{idx + 1}</th>
                   <td>{job.job_title}</td>
                   <td>{job.job_category}</td>
-                  <td>{job.resumeLink}</td>
+                  <td>
+                    {" "}
+                    <Link
+                      to={job.resumeLink}
+                      target="_blank"
+                      className="hover:link"
+                    >
+                      Resume Link
+                    </Link>
+                  </td>
                   <td>{job.email}</td>
                 </tr>
               ))}
