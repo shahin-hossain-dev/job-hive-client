@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import useAuth from "../../hooks/useAuth";
-import useCommonAxios from "../../hooks/useCommonAxios";
 import coverImg from "../../assets/img3.jpg";
 import { useState } from "react";
 
@@ -16,13 +15,12 @@ const AppliedJobs = () => {
   const { user } = useAuth();
   const [appliedJobs, setAppliedJobs] = useState([]);
   const secureAxios = useSecureAxios();
-  const commonAxios = useCommonAxios();
 
   const url = `/applied-jobs?email=${user?.email}`;
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryFn: async () => {
-      const res = await commonAxios.get(url);
+      const res = await secureAxios.get(url);
       setAppliedJobs(res.data);
       return res.data;
     },

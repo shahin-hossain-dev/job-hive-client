@@ -3,13 +3,7 @@ import TabAllJob from "./TabAllJob";
 import { useQuery } from "@tanstack/react-query";
 const TabAllJobs = () => {
   const url = "http://localhost:5000/jobs";
-  const {
-    data: jobs,
-    isPending,
-    isError,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: jobs, isLoading } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
       const res = await axios.get(url);
