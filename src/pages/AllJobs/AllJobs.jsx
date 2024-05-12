@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import coverImg from "../../assets/img3.jpg";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -13,17 +14,27 @@ const background = {
 
 const AppliedJobs = () => {
   const { user } = useAuth();
+  const [allJobs, setAllJobs] = useState([]);
 
   const commonAxios = useCommonAxios();
 
-  const { data: allJobs, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryFn: async () => {
       const res = await commonAxios.get("jobs");
-
+      setAllJobs(res.data);
       return res.data;
     },
     queryKey: ["applied-data"],
   });
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchText = e.target.search.value;
+
+    const searchJob = data.filter((job) =>
+      job.job_title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setAllJobs(searchJob);
+  };
 
   if (isLoading) {
     return (
@@ -46,21 +57,21 @@ const AppliedJobs = () => {
 
       <div className="w-[90%] md:w-[90%] lg:w-[85%] mx-auto mt-12 mb-12">
         {/* jo */}
-        <form>
-          <h6 className="font-semibold uppercase text-white mb-3 font-exo">
-            search
-          </h6>
-          <fieldset className="form-control w-[200]">
-            <label className="label flex justify-center md:justify-start mb-2 font-exo">
-              <span>Enter job title</span>
+        <form onSubmit={handleSearch}>
+          <fieldset className="form-control w-full">
+            <label className="label flex justify-center md:justify-start mb-2 ">
+              <span className="text-xl font-semibold">
+                Search with job title
+              </span>
             </label>
             <div className="join">
               <input
                 type="text"
+                name="search"
                 placeholder="search your job"
-                className="input input-bordered join-item text-neutral border border-[#56F09F]"
+                className="input input-bordered w-full md:w-1/2 join-item rounded-md border border-[#56F09F]"
               />
-              <button className="btn  join-item border-[#56F09F]">
+              <button type="submit" className="btn  join-item border-[#56F09F]">
                 Search
               </button>
             </div>
