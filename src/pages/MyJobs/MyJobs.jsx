@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import coverImg from "../../assets/img3.jpg";
 import useCommonAxios from "../../hooks/useCommonAxios";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -21,7 +22,7 @@ const MyJobs = () => {
 
   const url = `/my-jobs?email=${user?.email}`;
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryFn: async () => {
       const res = await commonAxios.get(url);
       setAllJobs(res.data);
@@ -30,10 +31,40 @@ const MyJobs = () => {
     queryKey: ["applied-data"],
   });
 
-  const handleDelete = (id) => {
-    const remainingJobs = data.filter();
+  const { mutateAsync } = useMutation({
+    mutationFn: async (id) => {
+      const res = await commonAxios.delete(`/job/${id}`);
+      return res.data;
+    },
+    onSuccess: (res) => {
+      refetch();
+      if (res.deletedCount > 0) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    },
+  });
 
-    setAllJobs(remainingJobs);
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert it!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutateAsync(id);
+      }
+    });
+    // const remainingJobs = data.filter();
+    // console.log(id);
+    // setAllJobs(remainingJobs);
   };
 
   if (isLoading) {
@@ -86,7 +117,9 @@ const MyJobs = () => {
                       <Link to={`/job-update/${job._id}`}>
                         <FaEdit className="text-2xl text-warning hover:rotate-180 duration-300 hover:duration-300" />
                       </Link>
-                      <FaRegTrashCan className="text-2xl text-error hover:rotate-180 duration-300 hover:duration-300" />
+                      <button onClick={() => handleDelete(job._id)}>
+                        <FaRegTrashCan className="text-2xl text-error hover:rotate-180 duration-300 hover:duration-300" />
+                      </button>
                     </div>
                   </td>
                 </tr>

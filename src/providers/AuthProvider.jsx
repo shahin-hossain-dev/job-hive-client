@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
       const loggedUser = { email: UserEmail };
 
       if (currentUser) {
-        const res = await secureAxios.post("/jwt", loggedUser);
+        await secureAxios.post("/jwt", loggedUser);
         // console.log(res);
         // .then((res) => console.log(res.data));
       } else {
