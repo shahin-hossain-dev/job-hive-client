@@ -59,15 +59,19 @@ const Navbar = () => {
       <ActiveLink to={"/all-jobs"}>
         <span className="nav-underline">All Jobs</span>
       </ActiveLink>
-      <ActiveLink to={"/applied-jobs"}>
-        <span className="nav-underline">Applied Jobs</span>
-      </ActiveLink>
-      <ActiveLink to={"/add-job"}>
-        <span className="nav-underline">Add A Job</span>
-      </ActiveLink>
-      <ActiveLink to={"/my-job"}>
-        <span className="nav-underline">My Jobs</span>
-      </ActiveLink>
+      {user && (
+        <>
+          <ActiveLink to={"/applied-jobs"}>
+            <span className="nav-underline">Applied Jobs</span>
+          </ActiveLink>
+          <ActiveLink to={"/add-job"}>
+            <span className="nav-underline">Add A Job</span>
+          </ActiveLink>
+          <ActiveLink to={"/my-job"}>
+            <span className="nav-underline">My Jobs</span>
+          </ActiveLink>
+        </>
+      )}
     </>
   );
   return (
