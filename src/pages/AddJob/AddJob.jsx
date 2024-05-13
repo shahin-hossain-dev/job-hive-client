@@ -4,16 +4,41 @@ import useAuth from "../../hooks/useAuth";
 import buttonSetting from "../../components/Button/Button";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
+import moment from "moment";
+import { useMutation } from "@tanstack/react-query";
+import useCommonAxios from "../../hooks/useCommonAxios";
 const AddJob = () => {
   const { user } = useAuth();
   const [error, setError] = useState("");
+  const commonAxios = useCommonAxios();
   const [deadlineDate, setDeadlineDate] = useState(new Date());
   // console.log(user.displayName);
-  const handlePostJob = (e) => {
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (newJob) => {
+      const res = await commonAxios.post("/jobs", newJob);
+      return res.data;
+    },
+    onSuccess: (res) => {
+      if (res.insertedId) {
+        Swal.fire({
+          title: "Job Post Successfully",
+          icon: "success",
+        });
+      }
+    },
+    onError: () => {
+      Swal.fire({
+        title: "Something Wrong",
+        icon: "error",
+      });
+    },
+  });
+
+  const handlePostJob = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const jobName = form.jobTitle.value;
+    const jobTitle = form.jobTitle.value;
     const jobDescription = form.jobDescription.value;
     const userEmail = form.userEmail.value;
     const userName = form.userName.value;
@@ -21,15 +46,19 @@ const AddJob = () => {
     const maxRange = form.maxRange.value;
     const imageURL = form.imageURL.value;
     const jobCategory = form.jobCategory.value;
-    const applicationDeadline = deadlineDate;
+    const applicationDeadline = moment(deadlineDate).format("YYYY-MM-DD");
+    const jobPostingDate = moment(new Date()).format("YYYY-MM-DD");
+    const jobApplicants = 0;
 
     setError("");
-    if (isNaN(parseInt(minRange))) {
+    if (isNaN(parseInt(minRange)) || isNaN(parseInt(maxRange))) {
       return setError("Please give number value");
     }
 
+    // console.log(moment(deadlineDate).format("YYYY-MM-DD"));
+
     const newJob = {
-      jobName,
+      jobTitle,
       jobDescription,
       userEmail,
       userName,
@@ -38,16 +67,11 @@ const AddJob = () => {
       imageURL,
       jobCategory,
       applicationDeadline,
+      jobPostingDate,
+      jobApplicants,
     };
-    console.log(newJob);
-    axios.post("").then((res) => {
-      if (res.data.insertedId) {
-        Swal.fire({
-          title: "Job Post Successfully",
-          icon: "success",
-        });
-      }
-    });
+
+    await mutateAsync(newJob);
   };
   return (
     <div>
@@ -69,7 +93,7 @@ const AddJob = () => {
                   <input
                     type="text"
                     name="jobTitle"
-                    placeholder="Craft Name"
+                    placeholder="Job Title"
                     className="input input-bordered"
                     required
                   />
@@ -81,7 +105,7 @@ const AddJob = () => {
                   <input
                     type="text"
                     name="jobDescription"
-                    placeholder="Short Description"
+                    placeholder="Job Description"
                     className="input input-bordered"
                     required
                   />
@@ -165,6 +189,7 @@ const AddJob = () => {
                   </label>
                   <ReactDatePicker
                     selected={deadlineDate}
+                    dateFormat="yyyy-MM-dd"
                     onChange={(date) => setDeadlineDate(date)}
                     className=" input flex items-center input-bordered w-full"
                   />

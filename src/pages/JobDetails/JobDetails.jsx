@@ -129,7 +129,10 @@ const JobDetails = () => {
               </div>
               <div className="card-body space-y-3 p-4">
                 <h2 className="card-title">{job_title}</h2>
-                <p>{job_description}</p>
+                <p>
+                  <span className="font-semibold">Description:</span>{" "}
+                  {job_description}
+                </p>
                 <div className="flex  items-center gap-2">
                   <span className="font-semibold">Salary Range:</span>
                   <p>

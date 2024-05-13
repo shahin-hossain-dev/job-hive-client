@@ -20,7 +20,7 @@ const AppliedJobs = () => {
 
   const { data, isLoading } = useQuery({
     queryFn: async () => {
-      const res = await commonAxios.get("jobs");
+      const res = await commonAxios.get("/jobs");
       setAllJobs(res.data);
       return res.data;
     },
@@ -69,9 +69,12 @@ const AppliedJobs = () => {
                 type="text"
                 name="search"
                 placeholder="search your job"
-                className="input input-bordered w-full md:w-1/2 join-item rounded-md border border-[#56F09F]"
+                className=" outline-none px-3 w-full md:w-1/2 join-item rounded-md border border-[#56F09F]"
               />
-              <button type="submit" className="btn  join-item border-[#56F09F]">
+              <button
+                type="submit"
+                className="btn  join-item border-[#56F09F] hover:border-[#56F09F]"
+              >
                 Search
               </button>
             </div>
