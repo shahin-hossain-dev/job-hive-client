@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import useSecureAxios from "../../hooks/useSecureAxios";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -19,12 +20,13 @@ const MyJobs = () => {
   const { user } = useAuth();
   const [allJobs, setAllJobs] = useState([]);
   const commonAxios = useCommonAxios();
+  const secureAxios = useSecureAxios();
 
   const url = `/my-jobs?email=${user?.email}`;
 
   const { data, isLoading, refetch } = useQuery({
     queryFn: async () => {
-      const res = await commonAxios.get(url);
+      const res = await secureAxios.get(url);
       setAllJobs(res.data);
       return res.data;
     },

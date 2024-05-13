@@ -80,7 +80,6 @@ const JobDetails = () => {
 
     try {
       const res = await commonAxios.patch(`/job/${_id}`, newApplicants);
-      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +91,13 @@ const JobDetails = () => {
       document.getElementById("apply").close();
       return Swal.fire({
         title: "Apply Date Expired",
+        icon: "error",
+        confirmButtonColor: "#56F09F",
+      });
+    } else if (user?.email === job?.user_email) {
+      document.getElementById("apply").close();
+      return Swal.fire({
+        title: "Job Holder Can't Apply",
         icon: "error",
         confirmButtonColor: "#56F09F",
       });
