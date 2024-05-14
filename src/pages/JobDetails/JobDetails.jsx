@@ -6,13 +6,17 @@ import { useMutation } from "@tanstack/react-query";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const JobDetails = () => {
   const job = useLoaderData();
   const [applicantCount, setApplicantCount] = useState(job.job_applicants);
   const commonAxios = useCommonAxios();
   const { user } = useAuth();
+  //   enter page to view from top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const background = {
     backgroundImage: `linear-gradient(to right, #00000066, #00000066),url(${job.job_banner_url})`,

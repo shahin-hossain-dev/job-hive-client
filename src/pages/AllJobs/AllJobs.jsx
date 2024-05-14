@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import coverImg from "../../assets/img3.jpg";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -15,8 +15,12 @@ const background = {
 const AppliedJobs = () => {
   const { user } = useAuth();
   const [allJobs, setAllJobs] = useState([]);
-
   const commonAxios = useCommonAxios();
+
+  //   enter page to view from top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data, isLoading } = useQuery({
     queryFn: async () => {

@@ -1,4 +1,6 @@
 import Banner from "../../../components/Banner/Banner";
+import Count from "../../../components/Count/Count";
+import SearchJob from "../../../components/SearchJob/SearchJob";
 import JobTabs from "../JobTabs/JobTabs";
 
 const Home = () => {
@@ -10,6 +12,8 @@ const Home = () => {
       </div>
       <div className="w-[90%] md:w-[90%] lg:w-[85%] mx-auto pb-24">
         <JobTabs />
+        <Count />
+        <SearchJob />
       </div>
     </div>
   );
