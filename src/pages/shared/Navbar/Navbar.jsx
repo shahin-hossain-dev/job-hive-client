@@ -87,7 +87,9 @@ const Navbar = () => {
               <div tabIndex={0} role="button" className=" md:hidden">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-neutral"
+                  className={`h-6 w-6  ${
+                    darkMode ? "text-white" : "text-neutral"
+                  }`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -102,7 +104,9 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu  space-y-4 menu-sm dropdown-content mt-3 z-20 p-5 shadow bg-white w-[200px] rounded-box "
+                className={`menu  space-y-4 menu-sm dropdown-content mt-3 z-20  p-5 shadow w-[200px] rounded-box  ${
+                  darkMode ? "bg-[#11111A] text-white" : "bg-white text-neutral"
+                }`}
               >
                 {links}
               </ul>
@@ -177,7 +181,11 @@ const Navbar = () => {
               before:absolute 
               before:inset-0`}
                 >
-                  <span className="relative flex gap-2 items-center   ">
+                  <span
+                    className={`relative flex gap-2 items-center ${
+                      darkMode ? "text-white" : "text-neutral"
+                    }`}
+                  >
                     <FaRegUserCircle className="text-xl" />
                     Logout
                   </span>
