@@ -22,7 +22,11 @@ const JobTabs = () => {
 
   return (
     <div className="mt-24">
-      <div className="mt-12 md:mt-24 text-center space-y-4 md:w-1/2 mx-auto">
+      <div
+        className="mt-12 md:mt-24 text-center space-y-4 md:w-1/2 mx-auto"
+        data-aos="fade-up"
+        data-aos-duration="300"
+      >
         <h2 className="text-2xl md:text-4xl font-bold font-exo">
           Job By <span className="text-[#56F09F]">Category</span>
         </h2>

@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import ActiveLink from "../../../components/ActiveLink/ActiveLink";
 import { FaRegUserCircle } from "react-icons/fa";
 import "./Navbar.css";
-
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import logo_1 from "../../../assets/logo_1.png";
+import logo_2 from "../../../assets/logo_2.png";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -76,7 +77,7 @@ const Navbar = () => {
   );
   return (
     <div
-      className={`w-full py-3 shadow-lg ${
+      className={`w-full py-2 shadow-lg ${
         darkMode ? "bg-[#11111A]" : "bg-white"
       }`}
     >
@@ -112,13 +113,18 @@ const Navbar = () => {
               </ul>
             </div>
             <div>
-              <h1
+              {/* <h1
                 className={`text-3xl md:text-4xl lg:text-5xl font-bold ${
                   darkMode ? "text-white" : "text-neutral"
                 }`}
               >
                 Job<span className="text-[#56F09F]">hive</span>
-              </h1>
+              </h1> */}
+              {darkMode ? (
+                <img src={logo_1} className="w-[150px] md:w-1/2" />
+              ) : (
+                <img src={logo_2} className="w-[150px]  md:w-1/2" />
+              )}
             </div>
           </div>
           <div className="gap-5 items-center navbar-center hidden md:flex">
@@ -156,18 +162,38 @@ const Navbar = () => {
                     <div className="w-10 rounded-full">
                       <img alt="User Image" src={user && user?.photoURL} />
                     </div>
+                    {user && (
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content z-[10] top-0 -left-32 md:hidden  text-neutral menu  shadow bg-base-100 rounded-lg w-32"
+                      >
+                        <li>
+                          <button
+                            className={
+                              darkMode
+                                ? "text-white border border-[#56F09F]"
+                                : "text-neutral border border-[#56F09F]"
+                            }
+                            onClick={handleLogout}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    )}
                   </div>
                 </div>
                 {/* user */}
                 <button
                   onClick={handleLogout}
                   className={`
+                  hidden
               relative
               rounded-md
               btn
               hover:bg-white
               border border-[#56F09F]
-              flex items-center gap-3  px-5 py-2 
+              md:flex items-center gap-3  px-5 py-2 
               before:scale-x-0
               before:origin-right
               before:transition

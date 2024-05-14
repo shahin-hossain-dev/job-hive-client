@@ -1,11 +1,17 @@
 import buttonSetting from "../Button/Button";
 import imgJob from "../../assets/img4.png";
 import { Link } from "react-router-dom";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+// ..
+AOS.init();
+
 const SearchJob = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center mt-24">
-      <img src={imgJob} alt="" />
-      <div className="space-y-4">
+      <img src={imgJob} alt="" data-aos="fade-right" data-aos-duration="300" />
+      <div className="space-y-4" data-aos="fade-left" data-aos-duration="500">
         <h2 className="text-4xl font-semibold">
           Millions Of <span className="text-[#56F09F]">Jobs.</span>{" "}
         </h2>

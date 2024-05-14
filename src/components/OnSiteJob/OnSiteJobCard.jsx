@@ -16,7 +16,11 @@ const OnSiteJobCard = ({ job }) => {
 
   return (
     <div>
-      <div className="card shadow-xl rounded-md hover:-translate-y-1 duration-[400ms] border border-base-200 hover:border-[#56F09F]">
+      <div
+        className="card shadow-xl rounded-md hover:-translate-y-1 duration-[400ms] border border-base-200 hover:border-[#56F09F]"
+        data-aos="fade-up"
+        data-aos-duration="300"
+      >
         <div className="card-body p-4">
           <h2 className="card-title">{job_title}</h2>
 

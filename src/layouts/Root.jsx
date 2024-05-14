@@ -7,13 +7,14 @@ const Root = () => {
   const { scrollYProgress } = useScroll();
   return (
     <div className="font-Jakarta relative">
+      <div className="sticky top-0 z-10 ">
+        <Navbar />
+      </div>
       <motion.div
         className="progress-bar"
         style={{ scaleX: scrollYProgress }}
       ></motion.div>
-      <div className="sticky top-0 z-10 ">
-        <Navbar />
-      </div>
+
       <Outlet />
       <Footer />
     </div>

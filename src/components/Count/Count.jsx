@@ -1,19 +1,19 @@
 import CountUp from "react-countup";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import ScrollTrigger from "react-scroll-trigger";
 import { useState } from "react";
+import ScrollTrigger from "../ScrollTrigger/ScrollTrigger";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
 // ..
 AOS.init();
-
 const Count = () => {
   const [counterOn, setCounterOn] = useState(false);
+  //   console.log(counterOn);
   return (
     <div>
       <div>
         <ScrollTrigger
           onEnter={() => setCounterOn(true)}
-          onExit={() => setCounterOn(false)}
+          onLeave={() => setCounterOn(false)}
         >
           <div
             className="grid grid-cols-1 place-items-center gap-10 lg:gap-0 md:grid-cols-2 lg:grid-cols-4 justify-between shadow-lg p-10 rounded-md mt-24 "
