@@ -12,8 +12,8 @@ const Home = () => {
       </div>
       <div className="w-[90%] md:w-[90%] lg:w-[85%] mx-auto pb-24">
         <JobTabs />
-        <Count />
         <SearchJob />
+        <Count />
       </div>
     </div>
   );

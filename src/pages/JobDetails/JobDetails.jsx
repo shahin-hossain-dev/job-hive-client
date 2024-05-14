@@ -7,7 +7,9 @@ import useCommonAxios from "../../hooks/useCommonAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
+import JobPDF from "../../components/JobPDF/JobPDF";
+import ReactPDF from "@react-pdf/renderer";
 const JobDetails = () => {
   const job = useLoaderData();
   const [applicantCount, setApplicantCount] = useState(job.job_applicants);
@@ -114,6 +116,9 @@ const JobDetails = () => {
   //   console.log(job);
   return (
     <div>
+      {/* <PDFViewer style={{ width: "100%", height: "100vh" }}>
+        <JobPDF job={job} />
+      </PDFViewer> */}
       <div
         className="w-full h-[200px] md:h-[300px] relative "
         style={background}
@@ -131,6 +136,23 @@ const JobDetails = () => {
             <img src={sideImage} className="w-full rounded-md" alt="" />
           </div>
           <div>
+            <div className="flex justify-end">
+              <PDFDownloadLink
+                document={<JobPDF job={job} />}
+                fileName={`${job_title}.pdf`}
+                style={{
+                  border: "1px solid #8BF0B3",
+                  borderRadius: "3px",
+                  padding: "3px",
+                  fontWeight: "bold",
+                  marginBottom: "10px",
+                }}
+              >
+                {({ loading }) =>
+                  loading ? "Loading document..." : "Download PDF!"
+                }
+              </PDFDownloadLink>
+            </div>
             <div className="card relative rounded-md  shadow-xl border border-[#8BF0B3]">
               <div className="absolute top-5 right-5 font-semibold">
                 <span className="bg-[#8BF0B366]  font-bold rounded-md px-3 py-1 ">
