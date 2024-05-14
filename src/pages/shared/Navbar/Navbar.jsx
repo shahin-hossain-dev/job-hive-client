@@ -125,14 +125,14 @@ const Navbar = () => {
               {darkMode ? (
                 <input
                   type="checkbox"
-                  className="toggle"
+                  className="toggle border border-[#33CC77]"
                   onChange={handleDarkMood}
                   defaultChecked={true}
                 />
               ) : (
                 <input
                   type="checkbox"
-                  className="toggle"
+                  className="toggle border text-[#56F09F] border-[#33CC77]"
                   onChange={handleDarkMood}
                   defaultChecked={false}
                 />

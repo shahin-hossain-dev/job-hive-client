@@ -97,7 +97,7 @@ const JobDetails = () => {
     } else if (user?.email === job?.user_email) {
       document.getElementById("apply").close();
       return Swal.fire({
-        title: "Job Holder Can't Apply",
+        title: "Employer Can't Apply His Job",
         icon: "error",
         confirmButtonColor: "#56F09F",
       });
