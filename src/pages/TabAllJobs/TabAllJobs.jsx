@@ -5,7 +5,7 @@ import useCommonAxios from "../../hooks/useCommonAxios";
 
 const TabAllJobs = () => {
   const commonAxios = useCommonAxios();
-  // const url = "http://localhost:5000/jobs";
+  // const url = "https://b9a11-server-side-shahin-hossain-dev.vercel.app/jobs";
   const { data: jobs, isLoading } = useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {

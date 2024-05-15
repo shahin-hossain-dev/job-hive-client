@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import OnSiteJobCard from "./OnSiteJobCard";
+import useCommonAxios from "../../hooks/useCommonAxios";
 
 const OnSiteJob = () => {
   // On Site
-  const url = "http://localhost:5000/job?type=On Site";
+  const commonAxios = useCommonAxios();
+  const url = "/job?type=On Site";
   const { data: jobs, isLoading } = useQuery({
     queryKey: ["remoteJob"],
     queryFn: async () => {
-      const res = await axios.get(url);
+      const res = await commonAxios.get(url);
       return res.data;
     },
   });

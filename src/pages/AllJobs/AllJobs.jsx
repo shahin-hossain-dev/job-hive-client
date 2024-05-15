@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 import coverImg from "../../assets/img3.jpg";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const background = {
 };
 
 const AppliedJobs = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [allJobs, setAllJobs] = useState([]);
   const commonAxios = useCommonAxios();
 

@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import CategoryJobCard from "../components/CategoryJobCard/CategoryJobCard";
+import useCommonAxios from "./useCommonAxios";
 
 const CategoryJobs = ({ type, queryKey }) => {
+  const commonAxios = useCommonAxios();
   // On Site
-  const url = `http://localhost:5000/job?type=${type}`;
+  const url = `/job?type=${type}`;
   const { data: jobs, isLoading } = useQuery({
     queryKey: [queryKey],
     queryFn: async () => {
-      const res = await axios.get(url);
+      const res = await commonAxios.get(url);
       return res.data;
     },
   });
