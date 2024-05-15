@@ -65,10 +65,7 @@ const router = createBrowserRouter([
             <JobDetails />
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(
-            `https://b9a11-server-side-shahin-hossain-dev.vercel.app/job/${params.id}`
-          ),
+        loader: ({ params }) => fetch(`http://localhost:5000/job/${params.id}`),
       },
       {
         path: "/job-update/:id",

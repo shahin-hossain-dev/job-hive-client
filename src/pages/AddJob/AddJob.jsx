@@ -72,6 +72,7 @@ const AddJob = () => {
     };
 
     await mutateAsync(newJob);
+    form.reset();
   };
   return (
     <div>
