@@ -73,6 +73,9 @@ const Navbar = () => {
           </ActiveLink>
         </>
       )}
+      <ActiveLink to={"/blogs"}>
+        <span className="nav-underline">Blogs</span>
+      </ActiveLink>
     </>
   );
   return (

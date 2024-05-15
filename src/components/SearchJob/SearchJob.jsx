@@ -9,7 +9,7 @@ AOS.init();
 
 const SearchJob = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center mt-24">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center mt-24 overflow-hidden">
       <img src={imgJob} alt="" data-aos="fade-right" data-aos-duration="300" />
       <div className="space-y-4" data-aos="fade-left" data-aos-duration="500">
         <h2 className="text-4xl font-semibold">

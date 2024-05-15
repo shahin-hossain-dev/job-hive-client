@@ -7,9 +7,9 @@ import useCommonAxios from "../../hooks/useCommonAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import JobPDF from "../../components/JobPDF/JobPDF";
-import ReactPDF from "@react-pdf/renderer";
+
 const JobDetails = () => {
   const job = useLoaderData();
   const [applicantCount, setApplicantCount] = useState(job.job_applicants);

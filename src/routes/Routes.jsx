@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import AllJobs from "../pages/AllJobs/AllJobs";
 import JobUpdate from "../pages/JobUpdate/JobUpdate";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Blogs from "../pages/Blogs/Blogs";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/job-update/:id",
         element: <JobUpdate />,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs />,
       },
     ],
   },

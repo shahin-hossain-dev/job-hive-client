@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCall } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
+import logo from "../../../assets/logo_1.png";
 import {
   FaFacebookF,
   FaInstagram,
@@ -16,10 +17,10 @@ const Footer = () => {
         {/* footer title */}
         <aside>
           <div className="flex md:justify-start justify-center ">
-            {/* <img src={logo} alt="" /> */}
-            <h2 className="text-3xl md:text-5xl font-bold">
+            <img src={logo} alt="" className="w-[250px]" />
+            {/* <h2 className="text-3xl md:text-5xl font-bold">
               Job<span className="text-[#56F09F]">hive</span>
-            </h2>
+            </h2> */}
           </div>
 
           <div className="flex flex-col items-center md:items-start gap-2 mt-5">
