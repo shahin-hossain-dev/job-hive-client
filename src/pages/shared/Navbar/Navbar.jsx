@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import logo_1 from "../../../assets/logo_1.png";
 import logo_2 from "../../../assets/logo_2.png";
+import { LuLogOut } from "react-icons/lu";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -76,6 +77,16 @@ const Navbar = () => {
       <ActiveLink to={"/blogs"}>
         <span className="nav-underline">Blogs</span>
       </ActiveLink>
+      <button
+        className={
+          darkMode
+            ? "text-white border btn md:hidden border-[#56F09F]"
+            : "text-neutral border btn md:hidden border-[#56F09F]"
+        }
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
     </>
   );
   return (
@@ -159,31 +170,12 @@ const Navbar = () => {
                   <div
                     tabIndex={0}
                     role="button"
-                    className="btn hover:bg-[#56F09F] border-0 btn-circle flex justify-center items-center  avatar tooltip before:bg-[#56F09F] before:text-neutral tooltip-bottom dropdown dropdown-hover "
+                    className="btn hover:bg-[#56F09F] border-0 btn-circle flex justify-center items-center avatar tooltip before:bg-[#56F09F] before:text-neutral tooltip-left md:tooltip-bottom dropdown dropdown-hover "
                     data-tip={user.displayName}
                   >
                     <div className="w-10 rounded-full">
                       <img alt="User Image" src={user && user?.photoURL} />
                     </div>
-                    {user && (
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content z-[10] top-0 -left-32 md:hidden  text-neutral menu  shadow bg-base-100 rounded-lg w-32"
-                      >
-                        <li>
-                          <button
-                            className={
-                              darkMode
-                                ? "text-white border border-[#56F09F]"
-                                : "text-neutral border border-[#56F09F]"
-                            }
-                            onClick={handleLogout}
-                          >
-                            Logout
-                          </button>
-                        </li>
-                      </ul>
-                    )}
                   </div>
                 </div>
                 {/* user */}
@@ -215,7 +207,7 @@ const Navbar = () => {
                       darkMode ? "text-white" : "text-neutral"
                     }`}
                   >
-                    <FaRegUserCircle className="text-xl" />
+                    <LuLogOut className="text-xl" />
                     Logout
                   </span>
                 </button>
