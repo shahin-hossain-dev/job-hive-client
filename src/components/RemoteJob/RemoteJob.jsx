@@ -24,11 +24,7 @@ const RemoteJob = () => {
   }
 
   return (
-    <div
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-12"
-      data-aos="fade-up"
-      data-aos-duration="300"
-    >
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
       {jobs.map((job) => (
         <RemoteJobCard key={job._id} job={job}></RemoteJobCard>
       ))}

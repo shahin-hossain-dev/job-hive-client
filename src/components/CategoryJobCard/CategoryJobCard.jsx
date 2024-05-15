@@ -1,6 +1,9 @@
 import { FaRegUser } from "react-icons/fa6";
 import buttonSetting from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 
 const CategoryJobCard = ({ job }) => {
   const {
@@ -16,7 +19,7 @@ const CategoryJobCard = ({ job }) => {
 
   //   console.log(job);
   return (
-    <div>
+    <div data-aos="fade-up" data-aos-duration="300">
       <div className="card shadow-xl rounded-md hover:-translate-y-1 duration-[400ms] border border-base-200 hover:border-[#56F09F]">
         <div className="card-body p-4">
           <h2 className="card-title">{job_title}</h2>

@@ -1,6 +1,9 @@
 import { FaRegUser } from "react-icons/fa6";
 import buttonSetting from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 
 const OnSiteJobCard = ({ job }) => {
   const {
