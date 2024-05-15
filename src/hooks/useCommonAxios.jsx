@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const commonAxios = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://b9a11-server-side-shahin-hossain-dev.vercel.app",
 });
 
 const useCommonAxios = () => {
