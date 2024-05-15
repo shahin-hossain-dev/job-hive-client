@@ -1,4 +1,8 @@
 import coverImg from "../../assets/img4.jpg";
+import { useQuery } from "@tanstack/react-query";
+import useCommonAxios from "../../hooks/useCommonAxios";
+import Blog from "./Blog";
+
 const background = {
   backgroundImage: `linear-gradient(to right, #00000066, #00000066),url(${coverImg})`,
   backgroundRepeat: "no-repeat",
@@ -7,6 +11,22 @@ const background = {
 };
 
 const Blogs = () => {
+  const commonAxios = useCommonAxios();
+  const { data: blogs, isLoading } = useQuery({
+    queryFn: async () => {
+      const res = await commonAxios.get("/blogs");
+      return res.data;
+    },
+    queryKey: ["blogs"],
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
   return (
     <div>
       <div
@@ -19,7 +39,11 @@ const Blogs = () => {
           <p className=" font-semibold">{}</p>
         </div>
       </div>
-      <h2>Blog Page</h2>
+      <div className="w-[90%] md:w-[90%] lg:w-[85%] mx-auto mt-12 mb-12 space-y-10">
+        {blogs.map((blog) => (
+          <Blog key={blog._id} blog={blog}></Blog>
+        ))}
+      </div>
     </div>
   );
 };
