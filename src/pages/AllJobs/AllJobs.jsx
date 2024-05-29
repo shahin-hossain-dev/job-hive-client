@@ -4,6 +4,7 @@ import coverImg from "../../assets/img3.jpg";
 import useCommonAxios from "../../hooks/useCommonAxios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import SalaryRangeSearch from "../../components/SalaryRangeSearch/SalaryRangeSearch";
 
 const background = {
   backgroundImage: `linear-gradient(to right, #000000CC, #000000CC),url(${coverImg})`,
@@ -15,6 +16,7 @@ const background = {
 const AppliedJobs = () => {
   // const { user } = useAuth();
   const [allJobs, setAllJobs] = useState([]);
+
   const commonAxios = useCommonAxios();
 
   //   enter page to view from top
@@ -25,6 +27,7 @@ const AppliedJobs = () => {
   const { data, isLoading } = useQuery({
     queryFn: async () => {
       const res = await commonAxios.get("/jobs");
+
       setAllJobs(res.data);
       return res.data;
     },
@@ -38,6 +41,19 @@ const AppliedJobs = () => {
       job.job_title.toLowerCase().includes(searchText.toLowerCase())
     );
     setAllJobs(searchJob);
+  };
+
+  const handleRangeSearch = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const minRange = parseInt(form.minRange.value);
+    const maxRange = parseFloat(form.maxRange.value);
+    console.log(minRange, maxRange);
+
+    const rangeSearch = await data.filter(
+      (job) => job.min_range >= minRange && job.max_range <= maxRange
+    );
+    setAllJobs(rangeSearch);
   };
 
   if (isLoading) {
@@ -84,6 +100,8 @@ const AppliedJobs = () => {
             </div>
           </fieldset>
         </form>
+        {/* salary range search */}
+        <SalaryRangeSearch handleRangeSearch={handleRangeSearch} />
 
         {/* table */}
         <div className="overflow-x-auto mt-12">
