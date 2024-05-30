@@ -24,7 +24,7 @@ const AppliedJobs = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { data, isLoading } = useQuery({
+  const { data: jobs, isLoading } = useQuery({
     queryFn: async () => {
       const res = await commonAxios.get("/jobs");
 
@@ -37,7 +37,7 @@ const AppliedJobs = () => {
     e.preventDefault();
     const searchText = e.target.search.value;
 
-    const searchJob = data.filter((job) =>
+    const searchJob = jobs.filter((job) =>
       job.job_title.toLowerCase().includes(searchText.toLowerCase())
     );
     setAllJobs(searchJob);
@@ -47,13 +47,21 @@ const AppliedJobs = () => {
     e.preventDefault();
     const form = e.target;
     const minRange = parseInt(form.minRange.value);
-    const maxRange = parseFloat(form.maxRange.value);
+    const maxRange = parseInt(form.maxRange.value);
     console.log(minRange, maxRange);
 
-    const rangeSearch = await data.filter(
-      (job) => job.min_range >= minRange && job.max_range <= maxRange
+    const { data } = await commonAxios.get(
+      `/job-range?min=${minRange}&max=${maxRange}`
     );
-    setAllJobs(rangeSearch);
+    if (!minRange && !maxRange) {
+      return setAllJobs(jobs);
+    }
+    setAllJobs(data);
+
+    // const rangeSearch = await data.filter(
+    //   (job) => job.min_range >= minRange && job.max_range <= maxRange
+    // );
+    // setAllJobs(data);
   };
 
   if (isLoading) {
