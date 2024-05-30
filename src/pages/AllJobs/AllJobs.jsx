@@ -112,34 +112,39 @@ const AppliedJobs = () => {
         <SalaryRangeSearch handleRangeSearch={handleRangeSearch} />
 
         {/* table */}
-        <div className="overflow-x-auto mt-12">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Job Title</th>
-                <th>Salary Range</th>
-                <th>Job Posting Date</th>
-                <th>Job Deadline</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              {allJobs.map((job) => (
-                <tr key={job._id}>
-                  <td>{job.job_title}</td>
-                  <td>
-                    {" "}
-                    <span>${job.min_range}</span> -{" "}
-                    <span>${job.max_range}</span>{" "}
-                  </td>
-                  <td>{job.job_posting_date}</td>
-                  <td>{job.application_deadline}</td>
-                  <td>
-                    <Link to={`/job-details/${job._id}`}>
-                      <button
-                        className={`
+        {allJobs.length === 0 ? (
+          <h2 className="text-3xl mt-10 text-neutral-500 text-center">
+            Result Not Found{" "}
+          </h2>
+        ) : (
+          <div className="overflow-x-auto mt-12">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Salary Range</th>
+                  <th>Job Posting Date</th>
+                  <th>Job Deadline</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* row 1 */}
+                {allJobs.map((job) => (
+                  <tr key={job._id}>
+                    <td>{job.job_title}</td>
+                    <td>
+                      {" "}
+                      <span>${job.min_range}</span> -{" "}
+                      <span>${job.max_range}</span>{" "}
+                    </td>
+                    <td>{job.job_posting_date}</td>
+                    <td>{job.application_deadline}</td>
+                    <td>
+                      <Link to={`/job-details/${job._id}`}>
+                        <button
+                          className={`
                           relative
                           rounded-md
                           btn
@@ -158,18 +163,19 @@ const AppliedJobs = () => {
                           hover:before:bg-[#56F09F]
                           before:absolute 
                           before:inset-0`}
-                      >
-                        <span className="relative flex gap-2 items-center   ">
-                          View Details
-                        </span>
-                      </button>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                        >
+                          <span className="relative flex gap-2 items-center   ">
+                            View Details
+                          </span>
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
