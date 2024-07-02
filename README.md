@@ -2,8 +2,6 @@
 
 ### Live Job Hive
 
-Currently, two official plugins are available:
-
 - [Job Hive](https://job-hive-84d2f.web.app/)
 
 ### Here is the most important key features is this app.
@@ -31,3 +29,28 @@ Currently, two official plugins are available:
 - React Countup
 - React Tabs
 - React Datepicker
+
+## How to run this project locally:
+If you run this project locally you hove to follow these steps below
+step 1: You have node js environment in your local machine 
+step 3: You have to clone this repository to your local machine 
+
+```bash
+git clone https://github.com/shahin-hossain-dev/job-hive-client.git
+```
+then your have to enter the folder location with your command line and install dependencies you use this command below
+
+```bash
+npm install
+```
+step 4: You have to make .env.local in your folder root level and need some credentials, you can make your own 
+- firebase credentials accroding to firebase.config.js
+
+step 5: You have backend integration with this clinet that instruction is [here](https://github.com/shahin-hossain-dev/job-hive-server.git) 
+
+step 6: Make sure these credentials now you could run this project
+
+```bash
+npm run dev
+```
+ ## Enjoy
